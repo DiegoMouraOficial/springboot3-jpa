@@ -1,7 +1,7 @@
 package io.diegomoura.springboot.services;
 
-import io.diegomoura.springboot.entities.User;
-import io.diegomoura.springboot.repositories.UserRepository;
+import io.diegomoura.springboot.entities.Order;
+import io.diegomoura.springboot.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class OrderService {
     @Autowired
-    private UserRepository repository;
-    public List<User> findAll() {
+    private OrderRepository repository;
+    public List<Order> findAll() {
         return repository.findAll();
     }
-    public User findById(Long id) {
-        Optional<User> obj = repository.findById(id);
+    public Order findById(Long id) {
+        Optional<Order> obj = repository.findById(id);
         return obj.get();
     }
 }
