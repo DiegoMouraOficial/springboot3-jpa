@@ -1,8 +1,10 @@
 package io.diegomoura.springboot.config;
 
+import io.diegomoura.springboot.entities.Category;
 import io.diegomoura.springboot.entities.Order;
 import io.diegomoura.springboot.entities.User;
 import io.diegomoura.springboot.entities.enums.OrderStatus;
+import io.diegomoura.springboot.repositories.CategoryRepository;
 import io.diegomoura.springboot.repositories.OrderRepository;
 import io.diegomoura.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,15 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Category category1 = new Category(null, "Eletrônicos");
+        Category category2 = new Category(null, "Livros");
+        Category category3 = new Category(null, "Vestuário");
 
         User user1 = new User(null, "Lupi", "lupi@bol.com.br", "11945875287", "xxx");
         User user2 = new User(null, "Rebeca", "rebeca@outlook.com", "11978562541", "xxx");
@@ -33,6 +42,7 @@ public class TestConfig implements CommandLineRunner {
         Order order2 = new Order(null, Instant.parse("2024-02-22T04:23:15Z"), OrderStatus.PAGO, user2 );
         Order order3 = new Order(null, Instant.parse("2024-05-30T15:20:27Z"), OrderStatus.CANCELADO, user3 );
 
+        categoryRepository.saveAll((Arrays.asList(category1, category2, category3)));
         userRepository.saveAll(Arrays.asList(user1, user2, user3));
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
     }
