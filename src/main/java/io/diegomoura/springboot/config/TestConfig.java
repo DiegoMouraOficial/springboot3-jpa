@@ -1,14 +1,8 @@
 package io.diegomoura.springboot.config;
 
-import io.diegomoura.springboot.entities.Category;
-import io.diegomoura.springboot.entities.Order;
-import io.diegomoura.springboot.entities.Product;
-import io.diegomoura.springboot.entities.User;
+import io.diegomoura.springboot.entities.*;
 import io.diegomoura.springboot.entities.enums.OrderStatus;
-import io.diegomoura.springboot.repositories.CategoryRepository;
-import io.diegomoura.springboot.repositories.OrderRepository;
-import io.diegomoura.springboot.repositories.ProductRepository;
-import io.diegomoura.springboot.repositories.UserRepository;
+import io.diegomoura.springboot.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +24,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -64,5 +60,13 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(user1, user2, user3));
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+
+        OrderItem orderItem1 = new OrderItem(order1,produto1, 2, produto1.getPreco());
+        OrderItem orderItem2 = new OrderItem(order1,produto2, 5, produto2.getPreco());
+        OrderItem orderItem3 = new OrderItem(order3,produto3, 10, produto3.getPreco());
+        OrderItem orderItem4 = new OrderItem(order3,produto4, 6, produto4.getPreco());
+
+        orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+
     }
 }
