@@ -27,6 +27,7 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -67,6 +68,11 @@ public class TestConfig implements CommandLineRunner {
         OrderItem orderItem4 = new OrderItem(order3,produto4, 6, produto4.getPreco());
 
         orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+
+        Payment payment1 = new Payment(null, Instant.parse("2024-02-22T05:23:15Z"), order2);
+        order2.setPayment(payment1);
+
+        orderRepository.save(order2);
 
     }
 }
