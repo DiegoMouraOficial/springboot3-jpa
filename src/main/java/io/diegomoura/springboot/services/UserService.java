@@ -2,6 +2,7 @@ package io.diegomoura.springboot.services;
 
 import io.diegomoura.springboot.entities.User;
 import io.diegomoura.springboot.repositories.UserRepository;
+import io.diegomoura.springboot.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class UserService {
     }
     public User findById(Long id) {
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
     // Inserindo User no BD
     public User insert(User obj) {
