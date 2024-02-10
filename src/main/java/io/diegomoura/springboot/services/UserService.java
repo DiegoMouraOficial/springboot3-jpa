@@ -20,14 +20,26 @@ public class UserService {
         Optional<User> obj = repository.findById(id);
         return obj.get();
     }
-    // Inserindo no BD o User
+    // Inserindo User no BD
     public User insert(User obj) {
         return repository.save(obj);
     }
 
-    // Deletando no BD o User
+    // Deletando User BD
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    // Atualizando User no BD
+    public User update(Long id, User obj) {
+        User entity = repository.getReferenceById(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+    private void updateData(User entity, User obj) {
+        entity.setNome(obj.getNome());
+        entity.setEmail(obj.getEmail());
+        entity.setTelefone(obj.getTelefone());
     }
 
 }
