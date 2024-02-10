@@ -20,9 +20,14 @@ public class UserService {
         Optional<User> obj = repository.findById(id);
         return obj.get();
     }
-    // Inserindo no BD um novo obejto do tipo User
+    // Inserindo no BD o User
     public User insert(User obj) {
         return repository.save(obj);
+    }
+
+    // Deletando no BD o User
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
 }
