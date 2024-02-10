@@ -57,6 +57,12 @@ public class OrderItem implements Serializable {
     }
     //#endregion
 
+    //#region ... Metodo
+    public Double getSubTotal() {
+        return price * quantity;
+    }
+    //#endregion
+
     //#region ...Equals HashCode
     @Override
     public boolean equals(Object o) {

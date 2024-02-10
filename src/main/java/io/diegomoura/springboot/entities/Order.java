@@ -80,6 +80,16 @@ public class Order implements Serializable {
     }
     //#endregion
 
+    //#region ... Metodo
+    public Double getTotal() {
+        double sum = 0.0;
+        for (OrderItem x :items) {
+            sum = sum + x.getSubTotal();
+        }
+        return sum;
+    }
+    //#endregion
+
     //#region ...Equals e HashCode
     @Override
     public boolean equals(Object o) {

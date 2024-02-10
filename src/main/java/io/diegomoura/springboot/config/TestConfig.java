@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @Profile("test")
@@ -72,7 +73,7 @@ public class TestConfig implements CommandLineRunner {
         Payment payment1 = new Payment(null, Instant.parse("2024-02-22T05:23:15Z"), order2);
         order2.setPayment(payment1);
 
-        orderRepository.save(order2);
+        orderRepository.saveAll(List.of(order2));
 
     }
 }
