@@ -4,6 +4,7 @@ import io.diegomoura.springboot.entities.User;
 import io.diegomoura.springboot.repositories.UserRepository;
 import io.diegomoura.springboot.services.exceptions.DataBaseException;
 import io.diegomoura.springboot.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -41,9 +42,14 @@ public class UserService {
 
     // Atualizando User no BD
     public User update(Long id, User obj) {
-        User entity = repository.getReferenceById(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            User entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+
     }
     private void updateData(User entity, User obj) {
         entity.setNome(obj.getNome());
