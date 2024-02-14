@@ -2,11 +2,13 @@ package io.diegomoura.springboot.services;
 
 import io.diegomoura.springboot.entities.User;
 import io.diegomoura.springboot.repositories.UserRepository;
+import io.diegomoura.springboot.services.exceptions.DataBaseException;
 import io.diegomoura.springboot.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.plaf.PanelUI;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,13 @@ public class UserService {
 
     // Deletando User BD
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e1) {
+            throw new DataBaseException(e1.getMessage());
+        }
     }
 
     // Atualizando User no BD
